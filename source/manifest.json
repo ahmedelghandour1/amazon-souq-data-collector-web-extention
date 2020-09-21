@@ -1,31 +1,69 @@
 {
-	"name": "Awesome Extension",
-	"version": "0.0.0",
-	"description": "An awesome new browser extension",
-	"homepage_url": "https://github.com/awesome-templates/browser-extension-template",
 	"manifest_version": 2,
-	"minimum_chrome_version": "74",
-	"applications": {
-		"gecko": {
-			"id": "awesome-extension@notlmn.github.io",
-			"strict_min_version": "67.0"
-		}
+	"name": "Page Font Style Extension",
+	"version": "1.0.0",
+	"description": "Change font style on specific pages",
+	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA45FdL4DuzkvVExUIjGkxjGOF7L4Ux2LO1Qw9n8fFx9hlhy7Uq7BFr+Gfos9MlZTcnr8SEKJi/DyFlgCu/6OTCnYHzLoqMDFKdUazCEJmw4sJlgFYiyVI2rPMAsqhCNjD1wrSBlWhjyzdpf8NRyvXGAJCehtCg3W+vWkfl65bLTxw10XzDAxfydarOeppj5XvGZz/OtCCxuLgAcI2hLyhyexnNBTGSUj3gcKcj0BQBA7yVD2NNvVfACR5K37nyZih1x7bhJ2SPZ1z5X9Iwor47xVXBDcb528+dYi8+nZH/u6lP/j4v8V9iziDXhB6ZzqmoR32TKqNyKrQbDhBIUEpvwIDAQAB",
+	"oauth2": {
+	  "client_id": "484823187470-luovjeorl7nltfqmd8fd907pd9gf97d0.apps.googleusercontent.com",
+	  "scopes": [
+		"https://www.googleapis.com/auth/drive"
+	  ]
 	},
 	"icons": {
-		"128": "icon.png"
+	  "128": "./icon128.png",
+	  "48": "./icon48.png",
+	  "16": "./icon16.png"
 	},
-	"permissions": [
-		"storage"
-	],
-	"options_ui": {
-		"chrome_style": true,
-		"page": "options.html"
+	"browser_action": {
+	  "default_icon": "./icon16.png",
+	  "default_popup": "popup.html",
+	  "default_title": "Page font style"
 	},
 	"background": {
-		"persistent": false,
-		"scripts": [
-			"browser-polyfill.min.js",
-			"background.js"
+	  "scripts": ["eventPage.js"],
+	  "persistent": true
+	},
+	"content_scripts": [
+	  {
+		"matches": [
+		  "https://www.amazon.com/*",
+		  "https://www.amazon.co.uk/*",
+		  "https://www.amazon.ca/*",
+		  "https://www.amazon.de/*",
+		  "https://www.amazon.fr/*",
+		  "https://www.amazon.co.jp/*",
+		  "https://www.amazon.br/*",
+		  "https://www.amazon.at/*",
+		  "https://www.amazon.it/*",
+		  "https://www.amazon.es/*",
+		  "https://www.amazon.cn/*",
+		  "https://www.amazon.com.mx/*",
+		  "https://www.amazon.com.au/*",
+		  "https://www.amazon.nl/*",
+		  "https://www.amazon.in/*",
+		  "https://www.amazon.sa/*",
+		  "https://www.amazon.ae/*"
+		],
+		"js": [
+		  "amazon.js"
 		]
-	}
-}
+	  },
+	  {
+		"matches": ["https://egypt.souq.com/*"],
+		"js": [
+		  "souq.js"
+		]
+	  }
+	],
+	"permissions": [
+	  "tabs",
+	  "storage",
+	  "identity",
+	  "identity.email",
+	  "https://www.amazon.com/*",
+	  "https://egypt.souq.com/*",
+	  "https://www.googleapis.com/"
+	]
+  }
+  
